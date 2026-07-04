@@ -1,0 +1,98 @@
+import { createClient } from "redis";
+import type { RedisClientType } from "redis";
+import type { RedisClientInterface } from "./type";
+
+class RedisClient implements RedisClientInterface {
+  client: RedisClientType | null;
+  url: string;
+  isConnected: boolean;
+  password: string;
+  ttl: number = 3600 * 5;
+
+  constructor(uri: string, password: string, ttl: number = 3600 * 5) {
+    this.password = password;
+    this.url = uri;
+    this.isConnected = false;
+    this.client = null;
+    this.ttl = ttl;
+  }
+
+  async createClient() {
+    this.client = createClient({
+      url: this.url,
+      password: this.password,
+    });
+  }
+
+  async connectToClient() {
+    if (!this.client) {
+      await this.createClient();
+    }
+
+    if (this.isConnected) return;
+
+    try {
+      await this.client!.connect();
+      this.isConnected = true;
+    } catch (error: any) {
+      console.log("Redis connection error:", error);
+      process.exit(1);
+    }
+  }
+
+  async setCache(key: string, message: any) {
+    try {
+      await this.client!.set(key, JSON.stringify(message), {
+        EX: this.ttl,
+      });
+    } catch (error) {
+      console.log("Redis upload error:", error);
+    }
+  }
+
+  async invalidateCache(key: string) {
+    try {
+      await this.client!.del(key);
+    } catch (error) {
+      console.log("Redis invalidation error:", error);
+    }
+  }
+
+  async getCache(key: string) {
+    try {
+      const data = await this.client!.get(key);
+
+      if (!data) return null;
+
+      return JSON.parse(data);
+    } catch (error) {
+      console.log("Redis upload error:", error);
+      return null;
+    }
+  }
+
+  async clearAllCache() {
+    let cursor = "0";
+
+    do {
+      const result = await this.client!.scan(cursor, {
+        MATCH: "*",
+        COUNT: 100,
+      });
+
+      cursor = result.cursor;
+
+      for (const key of result.keys) {
+        const type = await this.client!.type(key);
+
+        if (type === "string") {
+          await this.client!.del(key);
+        }
+      }
+    } while (cursor !== "0");
+
+    console.log("String cache cleared safely.");
+  }
+}
+
+export default RedisClient;

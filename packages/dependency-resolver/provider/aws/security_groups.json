@@ -1,0 +1,15 @@
+{
+  "id": 2,
+  "type": "security_groups",
+  "requires": ["vpc"],
+  "optional": [],
+  "inputs": [
+    "name",
+    "ami",
+    "inbound_rules",
+    "subnet_id",
+    "outbound_rules",
+    "tags"
+  ],
+  "outputs": ["security_group_id", "arn", "security_group_name"]
+}

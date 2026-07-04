@@ -1,0 +1,19 @@
+{
+  "name": "@orca/prisma",
+  "version": "1.0.0",
+  "description": "a library to export db instance",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Angad Sudan",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^6.19",
+    "dotenv": "^17.2.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.3",
+    "prisma": "^6.19"
+  }
+}

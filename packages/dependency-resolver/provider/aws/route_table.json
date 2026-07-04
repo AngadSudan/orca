@@ -1,0 +1,8 @@
+{
+  "id": 6,
+  "type": "route_table",
+  "requires": ["vpc", "internet_gateway"],
+  "optional": [],
+  "inputs": ["gateway_id", "vpc_id", "cidr_block", "tags"],
+  "outputs": []
+}

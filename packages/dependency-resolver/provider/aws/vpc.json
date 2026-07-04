@@ -1,0 +1,8 @@
+{
+  "id": 3,
+  "type": "vpc",
+  "requires": [],
+  "optional": [],
+  "inputs": ["cidr_block", "tags"],
+  "outputs": ["vpc_id", "arn"]
+}

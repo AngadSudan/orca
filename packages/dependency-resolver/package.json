@@ -1,0 +1,12 @@
+{
+  "name": "@orca/resolver",
+  "description": "The resolver package in orca uses a graph based approach to find out what all is required to keep the resource running and interact with each other. For example an ec2 uses a security group and theres a chance a security group might be created before the ec2. The resolver helps with that an returns a list of sorted order of resources.",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  }
+}
