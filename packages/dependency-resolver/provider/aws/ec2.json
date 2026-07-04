@@ -1,7 +1,7 @@
 {
   "id": 1,
   "type": "ec2",
-  "requires": ["security_groups", "subnet"],
+  "requires": ["security_groups", "route_table_association"],
   "optional": ["key_pair"],
   "inputs": [
     "name",

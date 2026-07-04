@@ -4,5 +4,5 @@
   "requires": ["vpc"],
   "optional": [],
   "inputs": ["vpc_id", "tags"],
-  "outputs": []
+  "outputs": ["gateway_id", "vpc_id"]
 }
