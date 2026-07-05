@@ -1,0 +1,6 @@
+{
+  "id": 1,
+  "type": "ec2",
+  "requires": ["security_groups"],
+  "optional": ["key_pair", "private_subnet"]
+}

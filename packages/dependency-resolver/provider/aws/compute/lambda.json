@@ -1,0 +1,6 @@
+{
+  "id": 10,
+  "type": "lambda",
+  "requires": ["iam_role"],
+  "optional": ["security_groups", "private_subnet", "subnet"]
+}

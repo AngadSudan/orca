@@ -1,0 +1,6 @@
+{
+  "id": 13,
+  "type": "sqs",
+  "requires": [],
+  "optional": []
+}

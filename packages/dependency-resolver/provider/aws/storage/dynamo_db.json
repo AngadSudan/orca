@@ -1,0 +1,6 @@
+{
+  "id": 8,
+  "type": "dynamo_db",
+  "requires": [],
+  "optional": []
+}

@@ -1,0 +1,6 @@
+{
+  "id": 9,
+  "type": "rds",
+  "requires": ["private_subnet", "security_groups"],
+  "optional": []
+}

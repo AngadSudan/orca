@@ -1,8 +1,8 @@
 {
   "id": 7,
   "type": "route_table_association",
-  "requires": ["route_table", "subnet"],
-  "optional": [],
+  "requires": ["route_table"],
+  "optional": ["private_subnet", "subnet"],
   "inputs": [],
   "outputs": []
 }

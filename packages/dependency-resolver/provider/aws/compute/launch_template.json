@@ -1,0 +1,6 @@
+{
+  "id": 16,
+  "type": "launch_template",
+  "requires": ["security_groups", "ami"],
+  "optional": ["private_subnet", "subnet"]
+}

@@ -1,0 +1,6 @@
+{
+  "id": 15,
+  "type": "app_elb",
+  "requires": ["security_groups"],
+  "optional": ["private_subnet", "subnet"]
+}

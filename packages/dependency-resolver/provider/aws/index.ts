@@ -1,18 +1,20 @@
-import ec2 from "./ec2.json";
-import internet_gateway from "./internet_gateway.json";
-import route_table_association from "./route_table_association.json";
-import route_table from "./route_table.json";
-import security_groups from "./security_groups.json";
-import subnet from "./subnet.json";
-import vpc from "./vpc.json";
+import ec2 from "./compute/ec2.json";
+import internet_gateway from "./network/internet_gateway.json";
+import private_subnet from "./network/private_subnet.json";
+import route_table from "./network/route_table.json";
+import route_table_association from "./network/route_table_association.json";
+import security_groups from "./network/security_groups.json";
+import subnet from "./network/subnet.json";
+import dynamo_db from "./storage/dynamo_db.json";
+
 const awsResourceGraph = {
   ec2,
   internet_gateway,
+  private_subnet,
   route_table,
   route_table_association,
   security_groups,
   subnet,
-  vpc,
 };
 
 export default awsResourceGraph;

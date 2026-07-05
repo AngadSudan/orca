@@ -1,0 +1,6 @@
+{
+  "id": 3,
+  "type": "private_subnet",
+  "requires": [""],
+  "optional": []
+}
