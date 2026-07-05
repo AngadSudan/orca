@@ -1,6 +1,6 @@
 {
   "id": 10,
   "type": "iam_role",
-  "requires": ["iam_role"],
+  "requires": [],
   "optional": ["security_groups", "private_subnet", "subnet"]
 }

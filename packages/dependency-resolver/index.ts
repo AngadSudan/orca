@@ -4,7 +4,15 @@ export function getDependencyMappings(
   provider: Providers,
   resource: Resources,
 ) {
-  return providerMapping[provider][resource];
+  const dependencyMappings = providerMapping[provider][resource];
+
+  if (!dependencyMappings) {
+    throw new Error(
+      `Unknown resource "${resource}" for provider "${provider}"`,
+    );
+  }
+
+  return dependencyMappings;
 }
 
 export function getCreationOrder(
@@ -23,13 +31,15 @@ export function getCreationOrder(
     graph[curr] = requires as Resources[];
 
     for (const dep of requires as Resources[]) {
+      getDependencyMappings(provider, dep);
+
       if (!discovered.has(dep)) {
         discovered.add(dep);
         queue.push(dep);
       }
     }
   }
-  console.log(graph);
+
   const visited = new Set<Resources>();
   const visiting = new Set<Resources>();
   const resourceOrder: Resources[] = [];
