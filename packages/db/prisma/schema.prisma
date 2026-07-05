@@ -6,3 +6,123 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+enum UserType {
+  SUPERADMIN
+  ADMIN
+  USER
+}
+
+enum ListingStatus {
+  LISTED
+  UNLISTED
+}
+
+enum Status {
+  DEPLOYED
+  ERROR
+  IN_PROGRESS
+  PENDING
+}
+
+enum PaymentStatus {
+  CREATED
+  ATTEMPTED
+  PAID
+  FAILED
+  REFUNDED
+}
+
+model User {
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  username      String
+  description   String
+  profileBanner String
+  type          UserType     @default(USER)
+  lastLoggedIn  DateTime?    @default(now())
+  providers     Providers[]
+  infraBoards   InfraBoard[]
+  purchases     Purchases[]
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+}
+
+model Providers {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  cloudProvider String
+  accesskeyId   String
+  accessSecret  String
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model InfraBoard {
+  id               String        @id @default(auto()) @map("_id") @db.ObjectId
+  boardName        String
+  boardDescription String
+  boardObjective   String
+  userId           String
+  pricing          Int           @default(0)
+  currency         String        @default("INR")
+  listing          ListingStatus @default(UNLISTED)
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  purchases        Purchases[]
+  infraNodes       InfraNode[]
+  infraLinks       InfraLink[]
+  deployments      Deployment[]
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+}
+
+model InfraNode {
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  nodename    String
+  description String
+  docs        String
+  config      Json
+  boardId     String
+  board       InfraBoard @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model InfraLink {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  source    String
+  target    String
+  type      String
+  boardId   String
+  board     InfraBoard @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Deployment {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  boardId   String
+  output    String
+  state     Status     @default(PENDING)
+  board     InfraBoard @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+}
+
+model Purchases {
+  id                String        @id @default(auto()) @map("_id") @db.ObjectId
+  buyerId           String
+  razorpayOrderId   String?
+  razorpayPaymentId String?
+  razorpaySignature String?
+  failureReason     String?
+  paymentStatus     PaymentStatus
+  buyer             User          @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+  boardId           String
+  board             InfraBoard    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  @@unique([buyerId, boardId])
+}
