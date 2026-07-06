@@ -1,0 +1,7 @@
+{
+  "id": 4,
+  "type": "target_group",
+  "terraformResourceName": "aws_lb_target_group",
+  "requires": [],
+  "optional": []
+}

@@ -1,6 +1,7 @@
 {
-  "id": 12,
+  "id": 14,
   "type": "s3",
+  "terraformResourceName": "aws_s3_bucket",
   "requires": [],
   "optional": []
 }

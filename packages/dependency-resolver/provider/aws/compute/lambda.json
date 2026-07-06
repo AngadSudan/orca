@@ -1,6 +1,7 @@
 {
-  "id": 10,
+  "id": 8,
   "type": "lambda",
+  "terraformResourceName": "aws_lambda_function",
   "requires": ["iam_role"],
-  "optional": ["security_groups", "private_subnet", "subnet"]
+  "optional": ["security_groups"]
 }

@@ -25,6 +25,11 @@ enum Status {
   PENDING
 }
 
+enum OnBoardingStatus {
+  PENDING
+  COMPLETED
+}
+
 enum PaymentStatus {
   CREATED
   ATTEMPTED
@@ -33,19 +38,28 @@ enum PaymentStatus {
   REFUNDED
 }
 
+enum VerificationStatus {
+  UN_VERIFIED
+  VERIFIEF
+}
+
 model User {
-  id            String       @id @default(auto()) @map("_id") @db.ObjectId
+  id            String             @id @default(auto()) @map("_id") @db.ObjectId
   name          String
   username      String
+  email         String             @unique
+  password      String
   description   String
   profileBanner String
-  type          UserType     @default(USER)
-  lastLoggedIn  DateTime?    @default(now())
+  verification  VerificationStatus @default(UN_VERIFIED)
+  onBoarding    OnBoardingStatus   @default(PENDING)
+  role          UserType           @default(USER)
+  lastLoggedIn  DateTime?          @default(now())
   providers     Providers[]
   infraBoards   InfraBoard[]
   purchases     Purchases[]
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+  createdAt     DateTime           @default(now())
+  updatedAt     DateTime           @updatedAt
 }
 
 model Providers {

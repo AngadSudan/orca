@@ -1,6 +1,7 @@
 {
-  "id": 13,
+  "id": 15,
   "type": "sqs",
+  "terraformResourceName": "aws_sqs_queue",
   "requires": [],
   "optional": []
 }

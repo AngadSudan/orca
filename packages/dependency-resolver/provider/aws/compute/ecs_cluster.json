@@ -1,0 +1,7 @@
+{
+  "id": 17,
+  "type": "ecs_cluster",
+  "terraformResourceName": "aws_ecs_cluster",
+  "requires": [],
+  "optional": []
+}

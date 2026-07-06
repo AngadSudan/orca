@@ -1,6 +1,7 @@
 {
-  "id": 1,
+  "id": 6,
   "type": "ec2",
+  "terraformResourceName": "aws_instance",
   "requires": ["security_groups"],
-  "optional": ["key_pair", "private_subnet"]
+  "optional": ["key_pair"]
 }

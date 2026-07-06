@@ -1,6 +1,7 @@
 {
-  "id": 15,
+  "id": 5,
   "type": "app_elb",
+  "terraformResourceName": "aws_lb",
   "requires": ["security_groups"],
-  "optional": ["private_subnet", "subnet"]
+  "optional": []
 }

@@ -1,8 +1,0 @@
-{
-  "id": 4,
-  "type": "subnet",
-  "requires": ["vpc", "route_table"],
-  "optional": [],
-  "inputs": ["name", "vpc_id", "cidr_block", "tags"],
-  "outputs": ["subnet_id", "arn"]
-}

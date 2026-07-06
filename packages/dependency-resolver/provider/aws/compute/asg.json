@@ -1,0 +1,7 @@
+{
+  "id": 11,
+  "type": "asg",
+  "terraformResourceName": "aws_autoscaling_group",
+  "requires": ["launch_template", "target_group"],
+  "optional": []
+}

@@ -1,6 +1,7 @@
 {
-  "id": 16,
+  "id": 7,
   "type": "launch_template",
-  "requires": ["security_groups", "ami"],
-  "optional": ["private_subnet", "subnet"]
+  "terraformResourceName": "aws_launch_template",
+  "requires": ["security_groups", "key_pair"],
+  "optional": []
 }

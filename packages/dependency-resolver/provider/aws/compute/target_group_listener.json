@@ -1,0 +1,7 @@
+{
+  "id": 9,
+  "type": "target_group_listener",
+  "terraformResourceName": "aws_lb_listener",
+  "requires": ["app_elb", "target_group"],
+  "optional": []
+}

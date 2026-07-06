@@ -1,8 +1,0 @@
-{
-  "id": 5,
-  "type": "internet_gateway",
-  "requires": ["vpc"],
-  "optional": [],
-  "inputs": ["vpc_id", "tags"],
-  "outputs": ["gateway_id", "vpc_id"]
-}

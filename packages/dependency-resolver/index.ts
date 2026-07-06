@@ -26,9 +26,9 @@ export function getCreationOrder(
 
   while (queue.length) {
     const curr = queue.shift()!;
-    const { requires } = getDependencyMappings(provider, curr);
+    const { requires, optional } = getDependencyMappings(provider, curr);
 
-    graph[curr] = requires as Resources[];
+    graph[curr] = [...requires, ...optional] as Resources[];
 
     for (const dep of requires as Resources[]) {
       getDependencyMappings(provider, dep);
@@ -38,8 +38,16 @@ export function getCreationOrder(
         queue.push(dep);
       }
     }
-  }
+    for (const dep of optional as Resources[]) {
+      getDependencyMappings(provider, dep);
 
+      if (!discovered.has(dep)) {
+        discovered.add(dep);
+        queue.push(dep);
+      }
+    }
+  }
+  console.log(graph);
   const visited = new Set<Resources>();
   const visiting = new Set<Resources>();
   const resourceOrder: Resources[] = [];

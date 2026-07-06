@@ -1,0 +1,7 @@
+{
+  "id": 2,
+  "type": "key_pair",
+  "terraformResourceName": "aws_key_pair",
+  "requires": [],
+  "optional": []
+}

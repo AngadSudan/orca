@@ -1,0 +1,7 @@
+{
+  "id": 19,
+  "type": "iam_role_policy_attachment",
+  "terraformResourceName": "aws_iam_role_policy_attachment",
+  "requires": ["iam_role"],
+  "optional": []
+}

@@ -1,6 +1,7 @@
 {
-  "id": 8,
+  "id": 12,
   "type": "dynamo_db",
+  "terraformResourceName": "aws_dynamodb_table",
   "requires": [],
   "optional": []
 }

@@ -1,6 +1,7 @@
 {
-  "id": 9,
+  "id": 13,
   "type": "rds",
-  "requires": ["private_subnet", "security_groups"],
+  "terraformResourceName": "aws_db_instance",
+  "requires": ["security_groups"],
   "optional": []
 }

@@ -1,0 +1,12 @@
+{
+  "id": 20,
+  "type": "ecs",
+  "terraformResourceName": "aws_ecs_service",
+  "requires": [
+    "ecs_cluster",
+    "ecs_cluster_task_definition",
+    "security_groups",
+    "iam_role_policy_attachment"
+  ],
+  "optional": []
+}

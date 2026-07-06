@@ -1,0 +1,7 @@
+{
+  "id": 10,
+  "type": "target_group_attachment",
+  "terraformResourceName": "aws_lb_target_group_attachment",
+  "requires": ["target_group", "ec2"],
+  "optional": []
+}

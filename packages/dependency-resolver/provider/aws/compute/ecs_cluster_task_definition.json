@@ -1,0 +1,7 @@
+{
+  "id": 18,
+  "type": "ecs_cluster_task_definition",
+  "terraformResourceName": "aws_ecs_task_definition",
+  "requires": [],
+  "optional": []
+}
