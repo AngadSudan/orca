@@ -1,0 +1,17 @@
+{
+  "region": null,
+  "name": null,
+  "alb_name": null,
+  "internal": false,
+  "security_group_ids": null,
+  "subnet_ids": null,
+  "enable_deletion_protection": false,
+  "idle_timeout": 60,
+  "ip_address_type": "ipv4",
+  "enable_http2": true,
+  "enable_cross_zone_load_balancing": true,
+  "drop_invalid_header_fields": false,
+  "preserve_host_header": false,
+  "access_logs": null,
+  "tags": {}
+}

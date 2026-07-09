@@ -1,0 +1,17 @@
+{
+  "region": null,
+  "instance_type": null,
+  "ami": null,
+  "subnet_id": null,
+  "security_group_ids": null,
+  "associate_public_ip_address": false,
+  "key_name": null,
+  "iam_instance_profile": null,
+  "user_data": null,
+  "root_volume_size": null,
+  "disk_size": 8,
+  "root_volume_type": "gp3",
+  "root_delete_on_termination": true,
+  "root_encrypted": false,
+  "tags": {}
+}

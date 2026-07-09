@@ -1,0 +1,12 @@
+{
+  "region": null,
+  "name": null,
+  "name_prefix": null,
+  "assume_role_policy": null,
+  "description": null,
+  "force_detach_policies": false,
+  "max_session_duration": 3600,
+  "path": "/",
+  "permissions_boundary": null,
+  "tags": {}
+}

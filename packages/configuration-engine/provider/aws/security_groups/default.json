@@ -1,0 +1,18 @@
+{
+  "region": null,
+  "name": null,
+  "description": "Managed by configuration engine",
+  "vpc_id": null,
+  "ingress_rules": [],
+  "egress_rules": [
+    {
+      "from_port": 0,
+      "to_port": 0,
+      "protocol": "-1",
+      "cidr_blocks": [
+        "0.0.0.0/0"
+      ]
+    }
+  ],
+  "tags": {}
+}

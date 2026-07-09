@@ -1,0 +1,15 @@
+{
+  "region": null,
+  "family": null,
+  "container_definitions": null,
+  "cpu": null,
+  "memory": null,
+  "network_mode": "awsvpc",
+  "requires_compatibilities": [
+    "FARGATE"
+  ],
+  "execution_role_arn": null,
+  "task_role_arn": null,
+  "runtime_platform": null,
+  "tags": {}
+}

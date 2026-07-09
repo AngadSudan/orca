@@ -1,0 +1,19 @@
+{
+  "region": null,
+  "name": null,
+  "name_prefix": null,
+  "min_size": null,
+  "max_size": null,
+  "desired_capacity": null,
+  "subnet_ids": null,
+  "target_group_arns": [],
+  "health_check_type": "EC2",
+  "health_check_grace_period": 300,
+  "default_cooldown": 300,
+  "force_delete": false,
+  "termination_policies": [],
+  "launch_template_id": null,
+  "launch_template_name": null,
+  "launch_template_version": "$Latest",
+  "tags": {}
+}

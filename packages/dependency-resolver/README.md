@@ -19,3 +19,39 @@ Once a graph is created we apply `topological sort` on the created graph to give
 ```
 
 > A default VPC will be created by default inorder to avoid the dependency of a public/private subnet. If any service might require a private subnet then based on the user input, the information can be populated.
+
+The frontend input will be shaped in the following manner
+
+```json
+{
+  "network": {
+    "subnets": [
+      {
+        "id": "subnet-1",
+        "type": "private",
+        "resources": [
+          {
+            "id": "dynamo_db",
+            "child": []
+          }
+        ]
+      },
+      {
+        "id": "subnet-2",
+        "type": "public",
+        "resources": [
+          {
+            "id": "dynamo_db",
+            "child": [
+              {
+                "id": "security_groups",
+                "child": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
+```

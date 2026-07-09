@@ -1,0 +1,11 @@
+{
+  "region": null,
+  "name": null,
+  "cluster": null,
+  "task_definition": null,
+  "desired_count": 1,
+  "launch_type": "FARGATE",
+  "network_configuration": null,
+  "load_balancers": [],
+  "tags": {}
+}

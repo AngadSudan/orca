@@ -1,0 +1,8 @@
+{
+  "region": null,
+  "name": null,
+  "shard_count": null,
+  "retention_period": 24,
+  "stream_mode": "ON_DEMAND",
+  "tags": {}
+}

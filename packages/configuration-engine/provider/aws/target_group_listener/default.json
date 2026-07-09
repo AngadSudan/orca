@@ -1,0 +1,11 @@
+{
+  "region": null,
+  "load_balancer_arn": null,
+  "target_group_arn": null,
+  "port": 80,
+  "protocol": "HTTP",
+  "certificate_arn": null,
+  "ssl_policy": null,
+  "default_action_type": "forward",
+  "tags": {}
+}

@@ -1,0 +1,19 @@
+{
+  "region": null,
+  "function_name": null,
+  "role_arn": null,
+  "handler": null,
+  "runtime": null,
+  "filename": null,
+  "s3_bucket": null,
+  "s3_key": null,
+  "s3_object_version": null,
+  "image_uri": null,
+  "package_type": "Zip",
+  "source_code_hash": null,
+  "memory_size": 128,
+  "timeout": 3,
+  "publish": false,
+  "environment_variables": {},
+  "tags": {}
+}

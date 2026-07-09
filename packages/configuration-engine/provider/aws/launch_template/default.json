@@ -1,0 +1,14 @@
+{
+  "region": null,
+  "name": null,
+  "name_prefix": null,
+  "description": null,
+  "image_id": null,
+  "instance_type": null,
+  "key_name": null,
+  "user_data": null,
+  "security_group_ids": [],
+  "iam_instance_profile": null,
+  "block_device_mappings": [],
+  "tags": {}
+}
