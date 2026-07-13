@@ -47,7 +47,6 @@ export function getCreationOrder(
       }
     }
   }
-  console.log(graph);
   const visited = new Set<Resources>();
   const visiting = new Set<Resources>();
   const resourceOrder: Resources[] = [];

@@ -125,6 +125,10 @@
     },
     "packages/tf-registry": {
       "name": "@orca/tf-registry",
+      "dependencies": {
+        "@orca/configuratio-engine": "*",
+        "@orca/resolver": "*",
+      },
       "devDependencies": {
         "@types/bun": "latest",
       },
