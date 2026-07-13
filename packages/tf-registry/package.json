@@ -2,6 +2,10 @@
   "name": "@orca/tf-registry",
   "module": "index.ts",
   "type": "module",
+  "dependencies": {
+    "@orca/resolver": "*",
+    "@orca/configuratio-engine": "*"
+  },
   "devDependencies": {
     "@types/bun": "latest"
   },
