@@ -8,9 +8,14 @@ datasource db {
 }
 
 enum UserType {
-  SUPERADMIN
   ADMIN
-  USER
+  MEMBER
+}
+
+enum BillingPlan {
+  BASIC
+  PRO
+  ENTERPRISE
 }
 
 enum ListingStatus {
@@ -40,7 +45,17 @@ enum PaymentStatus {
 
 enum VerificationStatus {
   UN_VERIFIED
-  VERIFIEF
+  VERIFIED
+}
+
+model Admin {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  username  String
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
@@ -53,24 +68,49 @@ model User {
   profileBanner String
   verification  VerificationStatus @default(UN_VERIFIED)
   onBoarding    OnBoardingStatus   @default(PENDING)
-  role          UserType           @default(USER)
+  organizations Organization[]
+  orgMembers    OrgMembers[]
   lastLoggedIn  DateTime?          @default(now())
-  providers     Providers[]
-  infraBoards   InfraBoard[]
-  purchases     Purchases[]
   createdAt     DateTime           @default(now())
   updatedAt     DateTime           @updatedAt
 }
 
+model Organization {
+  id             String       @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  orgPlan        BillingPlan  @default(BASIC)
+  creatorId      String       @db.ObjectId
+  creator        User         @relation(references: [id], fields: [creatorId], onDelete: Cascade)
+  startedAt      DateTime
+  planExpiration DateTime?
+  orgMembers     OrgMembers[]
+  providers      Providers[]
+  infraBoards    InfraBoard[]
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  purchases      Purchases[]
+}
+
+model OrgMembers {
+  id           String       @id @default(auto()) @map("_id") @db.ObjectId
+  userId       String
+  orgId        String
+  role         UserType     @default(MEMBER)
+  user         User         @relation(references: [id], fields: [userId], onDelete: Cascade)
+  organization Organization @relation(references: [id], fields: [orgId], onDelete: Cascade)
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+}
+
 model Providers {
-  id            String   @id @default(auto()) @map("_id") @db.ObjectId
+  id            String       @id @default(auto()) @map("_id") @db.ObjectId
   cloudProvider String
   accesskeyId   String
   accessSecret  String
-  userId        String
-  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  createdAt     DateTime @default(now())
-  updatedAt     DateTime @updatedAt
+  orgId         String
+  organization  Organization @relation(fields: [orgId], references: [id], onDelete: Cascade)
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
 }
 
 model InfraBoard {
@@ -78,40 +118,48 @@ model InfraBoard {
   boardName        String
   boardDescription String
   boardObjective   String
-  userId           String
+  orgId            String
+  provider         String        @default("AWS")
+  organization     Organization  @relation(fields: [orgId], references: [id], onDelete: Cascade)
   pricing          Int           @default(0)
   currency         String        @default("INR")
   listing          ListingStatus @default(UNLISTED)
-  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
   purchases        Purchases[]
   infraNodes       InfraNode[]
   infraLinks       InfraLink[]
   deployments      Deployment[]
-  createdAt        DateTime      @default(now())
-  updatedAt        DateTime      @updatedAt
 }
 
 model InfraNode {
-  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  id          String      @id @default(auto()) @map("_id") @db.ObjectId
   nodename    String
   description String
   docs        String
   config      Json
   boardId     String
-  board       InfraBoard @relation(fields: [boardId], references: [id], onDelete: Cascade)
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+  board       InfraBoard  @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  sourceLinks InfraLink[] @relation("source_node")
+  targetLinks InfraLink[] @relation("target_node")
+  infraLinks  InfraLink[]
 }
 
 model InfraLink {
-  id        String     @id @default(auto()) @map("_id") @db.ObjectId
-  source    String
-  target    String
-  type      String
-  boardId   String
-  board     InfraBoard @relation(fields: [boardId], references: [id], onDelete: Cascade)
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
+  id          String     @id @default(auto()) @map("_id") @db.ObjectId
+  sourceId    String     @db.ObjectId
+  targetId    String     @db.ObjectID
+  source      InfraNode  @relation("source_node", fields: [sourceId], references: [id], onDelete: Cascade)
+  target      InfraNode  @relation("target_node", fields: [targetId], references: [id], onDelete: Cascade)
+  type        String
+  boardId     String
+  board       InfraBoard @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  infraNode   InfraNode? @relation(fields: [infraNodeId], references: [id])
+  infraNodeId String?    @db.ObjectId
 }
 
 model Deployment {
@@ -132,7 +180,7 @@ model Purchases {
   razorpaySignature String?
   failureReason     String?
   paymentStatus     PaymentStatus
-  buyer             User          @relation(fields: [buyerId], references: [id], onDelete: Cascade)
+  buyer             Organization  @relation(fields: [buyerId], references: [id], onDelete: Cascade)
   boardId           String
   board             InfraBoard    @relation(fields: [boardId], references: [id], onDelete: Cascade)
   createdAt         DateTime      @default(now())

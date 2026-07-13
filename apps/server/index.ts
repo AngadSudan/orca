@@ -13,6 +13,14 @@ import "dotenv/config";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import type { JwtPayload } from "./utils/type";
+import adminRouter from "./routes/admin.route";
+import authRouter from "./routes/auth.route";
+import boardRouter from "./routes/board.route";
+import deploymentRouter from "./routes/deployment.route";
+import marketPlaceRouter from "./routes/market-place.route";
+import organizationRouter from "./routes/organization.route";
+import providerRouter from "./routes/provider.route";
+import userRouter from "./routes/user.route";
 dotenv.config({ path: "../.env" });
 
 const app: Express = express();
@@ -25,6 +33,7 @@ const limiter = rateLimit({
 app.use(morgan("dev") as any);
 
 //websecurity
+//@ts-ignore
 app.use(helmet());
 app.use("/api", limiter);
 app.use(hpp() as any);
@@ -80,6 +89,14 @@ declare global {
   }
 }
 // routes
+app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/admin", adminRouter);
+app.use("/api/v1/board", boardRouter);
+app.use("/api/v1/deployment", deploymentRouter);
+app.use("/api/v1/market-place", marketPlaceRouter);
+app.use("/api/v1/organization", organizationRouter);
+app.use("/api/v1/provider", providerRouter);
+app.use("/api/v1/user", userRouter);
 
 const errorHandler = (
   error: any,

@@ -3,9 +3,14 @@ import path from "path";
 import getConfigurationMappings from "@orca/configuratio-engine";
 import { getCreationOrder } from "@orca/resolver";
 import type { Resource, ResourceGraph } from "./type";
+import { composeRootMainTf } from "./util/rootComposer";
 
 const written = new Set<string>();
 const outRoot = path.resolve(process.cwd(), `generated_tf/`);
+
+function hasTerraformFiles(boardResource: Resource) {
+  return Object.keys(boardResource.terraform ?? {}).length > 0;
+}
 
 function completeDependencies(boardResource: Resource) {
   let creationOrder = null;
@@ -29,7 +34,9 @@ function completeDependencies(boardResource: Resource) {
       });
     }
   } catch (error) {
-    console.log("Error in resolving dependency for ", boardResource.resource);
+    if (!hasTerraformFiles(boardResource)) {
+      console.log("Error in resolving dependency for ", boardResource.resource);
+    }
   }
 
   boardResource.dependencies = updatedResources;
@@ -68,7 +75,9 @@ function completeDependencies(boardResource: Resource) {
       console.log("Error: Couldnot get terraform");
     }
   } catch (error) {
-    console.log("Error in configuring variables for ", boardResource.resource);
+    if (!hasTerraformFiles(boardResource)) {
+      console.log("Error in configuring variables for ", boardResource.resource);
+    }
   }
 
   for (const resource of boardResource.contains) {
@@ -120,8 +129,8 @@ function createModule(res: Resource) {
   written.add(res.name);
 }
 
-function populateCoreFile(res: Resource) {
-  const content = ``;
+function populateCoreFile(boardResource: ResourceGraph, provider: string) {
+  const content = composeRootMainTf(boardResource, provider);
   const relative = "main.tf";
   const filePath = path.join(outRoot, relative);
   fs.writeFileSync(filePath, content, "utf8");
@@ -139,10 +148,7 @@ function exportTf(boardResource: ResourceGraph, provider: string = "aws") {
   }
 
   // create main.tf for actual code execution
-  for (const name of Object.keys(boardResource)) {
-    const res = boardResource[name]!;
-    populateCoreFile(res);
-  }
+  populateCoreFile(boardResource, provider);
 }
 
 export default exportTf;

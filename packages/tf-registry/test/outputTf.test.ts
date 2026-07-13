@@ -178,4 +178,4 @@ const config: ResourceGraph = {
   },
 };
 
-exportTf(config, "aws");
+console.log(exportTf(config, "aws"));
