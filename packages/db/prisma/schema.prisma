@@ -64,10 +64,12 @@ model User {
   username      String
   email         String             @unique
   password      String
-  description   String
-  profileBanner String
+  description   String?
+  profileBanner String             @default("")
   verification  VerificationStatus @default(UN_VERIFIED)
   onBoarding    OnBoardingStatus   @default(PENDING)
+  accessToken   String?
+  refreshToken  String?
   organizations Organization[]
   orgMembers    OrgMembers[]
   lastLoggedIn  DateTime?          @default(now())
@@ -150,7 +152,7 @@ model InfraNode {
 model InfraLink {
   id          String     @id @default(auto()) @map("_id") @db.ObjectId
   sourceId    String     @db.ObjectId
-  targetId    String     @db.ObjectID
+  targetId    String     @db.ObjectId
   source      InfraNode  @relation("source_node", fields: [sourceId], references: [id], onDelete: Cascade)
   target      InfraNode  @relation("target_node", fields: [targetId], references: [id], onDelete: Cascade)
   type        String
