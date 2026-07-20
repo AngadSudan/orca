@@ -21,6 +21,7 @@ import marketPlaceRouter from "./routes/market-place.route";
 import organizationRouter from "./routes/organization.route";
 import providerRouter from "./routes/provider.route";
 import userRouter from "./routes/user.route";
+import redisClient from "./utils/redis";
 dotenv.config({ path: "../.env" });
 
 const app: Express = express();
@@ -84,7 +85,7 @@ app.get("/health", async (req, res) => {
 declare global {
   namespace Express {
     interface Request {
-      user?: JwtPayload;
+      user: JwtPayload;
     }
   }
 }
@@ -155,6 +156,9 @@ app.use((req, res) => {
 });
 
 app.listen(process.env.PORT || 8000, () => {
+  redisClient.connectToClient().then(() => {
+    console.log("Redis Session Connected");
+  });
   console.log({
     message: "application started on port 8000",
     loggingLevel: "info",

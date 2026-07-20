@@ -71,11 +71,6 @@ export interface User {
   createdAt: Date;
   updatedAt: Date;
 }
-export type RegisterDTO = Pick<
-  User,
-  "name" | "username" | "email" | "password"
->;
-export type LoginDTO = Pick<User, "username" | "email" | "password">;
 
 export interface Organization {
   id: string;

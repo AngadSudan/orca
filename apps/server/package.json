@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "bun index.ts --watch"
+    "dev": "bun --watch index.ts"
   },
   "devDependencies": {
     "@types/axios": "^0.14.4",
@@ -15,7 +15,8 @@
     "@types/express": "^5.0.6",
     "@types/hpp": "^0.2.7",
     "@types/jsonwebtoken": "^9.0.10",
-    "@types/morgan": "^1.9.10"
+    "@types/morgan": "^1.9.10",
+    "@types/nodemailer": "^8.0.1"
   },
   "peerDependencies": {
     "typescript": "^5"
@@ -39,6 +40,7 @@
     "helmet": "^8.1.0",
     "hpp": "^0.2.3",
     "jsonwebtoken": "^9.0.3",
-    "morgan": "^1.10.1"
+    "morgan": "^1.10.1",
+    "nodemailer": "^9.0.3"
   }
 }

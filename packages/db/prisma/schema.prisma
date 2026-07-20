@@ -69,7 +69,6 @@ model User {
   verification  VerificationStatus @default(UN_VERIFIED)
   onBoarding    OnBoardingStatus   @default(PENDING)
   accessToken   String?
-  refreshToken  String?
   organizations Organization[]
   orgMembers    OrgMembers[]
   lastLoggedIn  DateTime?          @default(now())
@@ -83,7 +82,7 @@ model Organization {
   orgPlan        BillingPlan  @default(BASIC)
   creatorId      String       @db.ObjectId
   creator        User         @relation(references: [id], fields: [creatorId], onDelete: Cascade)
-  startedAt      DateTime
+  startedAt      DateTime?
   planExpiration DateTime?
   orgMembers     OrgMembers[]
   providers      Providers[]

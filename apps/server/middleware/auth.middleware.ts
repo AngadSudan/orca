@@ -1,7 +1,7 @@
 import type { Request, Response, NextFunction } from "express";
 import { verifyAccessToken } from "../utils/jwt";
 import apiResponse from "../utils/apiResponse";
-import prismaClient from "../utils/prisma";
+import userRepository from "../repository/user.repository";
 
 export const authMiddleware = async (
   req: Request,
@@ -16,12 +16,12 @@ export const authMiddleware = async (
 
     const decoded = verifyAccessToken(token);
 
-    // TODO: verify user in db
+    if (!decoded.email) throw new Error("Invalid Token!");
 
-    if (!decoded.id) throw new Error("Incorrect Token !");
-
+    const dbUser = await userRepository.getUser(decoded.email);
+    if (!dbUser) throw new Error("Invalid User!");
     req.user = {
-      id: decoded.id,
+      email: dbUser.email,
     };
 
     next();

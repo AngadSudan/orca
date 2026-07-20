@@ -2,9 +2,9 @@ import prisma from "../utils/prisma";
 import type { RegisterDTO, User } from "../utils/type";
 
 class UserRepository {
-  async getUser(id: string, includeSensitiveInfo: boolean = false) {
+  async getUser(email: string, includeSensitiveInfo: boolean = false) {
     return await prisma.user.findFirst({
-      where: { OR: [{ id }, { email: id }] },
+      where: { OR: [{ email: email }] },
       select: {
         id: includeSensitiveInfo,
         name: true,
@@ -17,7 +17,6 @@ class UserRepository {
         lastLoggedIn: true,
         password: includeSensitiveInfo,
         accessToken: includeSensitiveInfo,
-        refreshToken: includeSensitiveInfo,
       },
     });
   }
@@ -44,11 +43,11 @@ class UserRepository {
   }
 
   async updateUser(
-    id: string,
+    email: string,
     updatedValue: Partial<User>,
     includeSensitiveInfo: boolean = false,
   ) {
-    const dbUser = await this.getUser(id, true);
+    const dbUser = await this.getUser(email, true);
 
     if (!dbUser) {
       throw new Error("User not found");
@@ -81,7 +80,6 @@ class UserRepository {
         lastLoggedIn: true,
         password: includeSensitiveInfo,
         accessToken: includeSensitiveInfo,
-        refreshToken: includeSensitiveInfo,
       },
     });
   }
